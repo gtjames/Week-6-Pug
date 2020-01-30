@@ -1,0 +1,22 @@
+doctype html
+html
+  head
+    title= title
+    block scripts
+      link(rel='stylesheet', href='/stylesheets/style.css')
+
+  body
+    block timeOfDay
+      - var timeOfDay = (new Date()).toDateString()
+      p.mash= 'The Time is: ' + timeOfDay
+
+    block content
+      //  nothing here
+
+    block contactAddress
+      p this is in the contactAddress block in layout.jade
+      p 8701 Bedford Euless Rd
+      p Suite 610
+      p Hurst, TX  76053
+
+      include footer.jade

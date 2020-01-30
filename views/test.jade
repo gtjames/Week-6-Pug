@@ -1,0 +1,193 @@
+extends layout
+
+block content
+  head
+    title Jade Template
+
+    - var thumbImg = "../images/thumbs.jpg"
+    style.
+      body {
+        font-family: Verdana, sans-serif;
+        font-size: 13px;
+        background: salmon;
+      }
+
+      a { color: #2fb15e;  }
+      a:hover { color: #F70606 }
+
+      .thumb { border-radius: 50%; height: 30px; width: 30px; }
+      .down { background: url("#{thumbImg}")    0px; background-size: 200%;}
+      .up   { background: url("#{thumbImg}") 30px; background-size: 200%; }
+
+  body
+    - var school = { name: 'Edge Tech Academy' }
+    - var accredited = true
+
+    //
+        create a <div>
+          if the school object has a name create an H2 header and a paragraph following with the school name
+          if the school is accredited
+    #user
+      if school.name
+        h2.ETA School Name
+        p.description= school.name
+        if accredited
+          h2.blue Description
+          p.blue.description.
+            #{school.name} was accredited,
+            Date: March 31, 2017
+        else
+          h2.red Description
+          p.description Accreditation pending
+
+        //
+          unless this statement is true to the indented block
+    unless accredited
+      p #{school.name} You need to get accredited
+
+    p.red.active#name.large.rediculous this is cool
+    .big.red.mash big red mash
+
+    ul
+      - var list = [1, 2, 3, 4, 5]
+      each val in list
+        if ( val & 1 )
+          li= val
+    ul
+      - var fruits = ["apples", "pears", "cherries", "oranges", "grapes", "tangerines", "nectarines", "bananas"]
+      each val in fruits
+        if ( val.length > 6 )
+          li= val
+
+    h1 Jade Intro.
+    a(href="http://www.cnn.com"): img(src=thumbImg)
+
+    table
+        tr
+          td: img.up.thumb
+          td: img.down.thumb
+        tr
+          td.up.thumb  2,1
+          td  2,2
+        tr
+          td  3,1
+          td.down.thumb
+
+    h2 Text and Comments
+    h3
+      p Text inside <em>paragraph</em> tag
+      p
+        | | Multi
+        | Line
+      p.
+        .Another way for large
+        bodies of text!
+
+      // HTML Comments visible in HTML source
+      //- Invisible comments - Jade specific
+      //
+        block comments
+          this piece of text won't be visible on the page.
+          as this is part of the HTML block comments.
+
+    h2 IDs and Classes
+    #content
+      p.description `p` with a class of description inside a `div` with an id of content. You can simply omit the div btw.
+
+    h2 Attributes
+      // for boolean attributes you can pass true/false or omit them
+      // Multi lines ?
+      // No commas ?
+    input(type="checkbox"
+      name="terms"
+      checked)
+
+    h2 Nesting
+      // We will do some nesting now
+        | Lesser nesting ? ok .. cool!
+
+    ul#menu
+      li: a(href="/test/", title="Home") Test Home
+      li.blue: a(href="/test/pageA", title="Contact") Page A
+      a.red(href="/test/pageB", title="Contact"): li Page B
+
+    h2 Variables and Escaping
+      // Ok .. time to learn the real stuff now!
+        | Let's say you passed some variables to this template
+        | from your Node.js code. Since we don't have a node.js setup
+        | we're going to set the variables inside here.
+        | yes! you can define variables in jade templates!
+
+        | want more text in the heading ?
+        | arrays ? objects ?
+
+        | One thing to remember though. Jade will html escape
+        | the contents of \#{}. If you want unescaped content
+        | use \!{}
+        | Also notice i escaped all interpolation tokens in this
+        | block comment, else Jade would think that it needs to
+        | do some string interpolation and throw errors!
+
+        | That's all for now! In the next part I am going to
+        | show you some other features like conditionals, mixins
+        | and loops.
+
+    - my_var = [{name: 'Jade', type: 'templating engine'},  {name: 'Pug', type: 'templating engine Renamed'}]
+    h3 #{my_var[0].name} is a #{my_var[1].type}
+
+    -
+      var movieList =
+        [
+          {
+            title: "Pirates of the Caribbean",
+            cast: [{character:"Captain Jack", actor:"Johnny Depp"}, {actor:"Geoffrey Rush", character:"Barbossa"}, {character:"Elizabeth Swann", actor:"Keira Knightley"}, {character:"Will Turner", actor:"Orlando Bloom"}],
+            genres: ["Adventure", "Comedy"],
+            posterImage: "/img/pirates-caribbean",
+            imdbURL: "http://www.imdb.com/title/tt0325980/",
+            rating: 9.7
+          },
+          {
+            title: "Ocean's Eleven",
+            cast: [{character:"Tess Ocean", actor:"Julia Roberts"}, {character:"Danny Ocean", actor:"George Clooney"}, {character:"Rusty Ryan", actor:"Brad Pitt"}, {character:"Terry Benedict", actor:"Andy Garcia"}],
+            genres: ["Comedy", "Thriller"],
+            posterImage: "/img/oceans-eleven",
+            imdbURL: "http://www.imdb.com/title/tt0240772/",
+            rating: 3.2
+          }
+      ];
+
+    for movie in movieList
+      +movie-card(movie)
+
+    - var movie = movieList[0];
+    div.movie-card
+      a(href=movie.imdbURL): h2.movie-title= movie.title
+      h3 Cast
+      ul.cast
+      each actor in movie.cast
+        li #[em #{actor.actor}]: #{actor.character}
+      div.rating
+        if movie.rating > 5
+          .up.thumb
+        else
+          .down.thumb
+      ul.genre
+        each genre in movie.genres
+          li= genre + " " + genre.length
+
+mixin movie-card(movie)
+  div.movie-card
+    a(href=movie.imdbURL)
+      h2.movie-title= movie.title
+    h3 Cast
+    ul.cast
+    each actor in movie.cast
+      li= actor.actor + ": " + actor.character
+    div.rating
+      if movie.rating > 5
+        .up.thumb
+      else
+        .down.thumb
+    ul.genre
+      each genre in movie.genres
+        li= genre

@@ -1,0 +1,118 @@
+extends layout
+
+block content
+  h1= title
+
+  p= `Welcome to ${title}`
+  p Welcome to #{title}
+  p= 'Welcome to #{title}'
+
+  - var btnType = 'info'
+  - var btnSize = 'lg'
+  class ("btn btn-#{btnType} btn-#{btnSize}")
+
+  = '\n'
+  button(type='button' class='btn btn-' + btnType + ' btn-' + btnSize) Button 1
+  = '\n'
+  button(type='button' class=`btn btn-${btnType} btn-${btnSize}`) Button 2
+  = '\n'
+  button(type='button' class="btn btn-#{btnType} btn-#{btnSize}") Button 3
+  = '\n'
+
+  //  - var title = "On Dogs: Man's Best Friend";
+  - var author = "The Author";
+  - var theGreat = "<span>escape!</span>";
+
+  p.
+    This is a very long and boring paragraph that spans multiple lines.
+    Suddenly there is a #[strong strongly worded phrase] that cannot be
+    #[em ignored].
+
+  div(class='div-class', onClick='play()') Hey you!
+  div(class='div-class'  onClick='play()') Click on me
+
+  h1= title
+  p Written with love by #{author}
+  p This will be safe: #{theGreat}
+  - var starWars = "<em>I don't have a good feeling about this</em>";
+  .quote
+    p Han: !{starWars}
+  ul
+    each val, index in {1:'one',2:'two',3:'three'}
+      li= index + ': ' + val
+
+    -
+      var list = ["Uno", "Dos", "Tres", "Cuatro", "Cinco", "Seis"]
+  ul
+    each item, it in list
+      li= item + it
+
+  - var values = [];
+  ul
+    each val in values.length ? values : ['There are no values']
+      li= val
+
+  p now we have values in our array
+  - values = [1, 17, 'Test', 'more tests'];
+  ul
+    each val in values
+      li= val
+    else
+      li There are no values
+
+  ul
+    each val, index in ['zero', 'one', 'two']
+      li= index + ': ' + val
+
+  - for (var x = 0; x < 3; x++)
+    li item #{x}
+
+  - var friends = 10
+  case friends
+    when 0
+      p you have no friends
+    when 1
+      p you have a friend
+    when 2
+      p you two friends
+    default
+      p you have #{friends} friends
+
+  - friends = 0
+  case friends
+    when 0
+    when 1
+      p you have very few friends
+    default
+      p you have #{friends} friends
+
+  case friends
+    when 0
+      - break
+    when 1
+      p you have very few friends
+    default
+      p you have #{friends} friends
+
+  - friends = 1
+    //  this uses block expansion. The colon separates elements or tokens or whatever you want to call them
+  case friends
+    when 0: p you have no friends
+    when 1: p you have a friend
+    default: p you have #{friends} friends
+
+  | Plain text can include <strong>html</strong>
+  p
+    | It must always be on its own line
+  p Plain text can include <strong>html</strong>
+
+  script.
+    var usingPug = true;
+    if (usingPug)
+      console.log('you are awesome');
+    else
+      console.log('use pug');
+
+    function play() {
+        alert('hey')
+    }

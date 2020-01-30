@@ -1,0 +1,13 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background: #ccc;
+}
+
+a {  color: #00B7FF;}
+
+h1 { font-size: 22px; color: #c606c6; }
+.blue { color: blue }
+.big  { font-size: 24px }
+.red  { color: #ff3388 }
+.mash { font-family: Stencil,serif }

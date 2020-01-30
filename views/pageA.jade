@@ -1,0 +1,20 @@
+//- page-a.pug
+extends layout2.jade
+
+block scripts
+  script(src='/javascripts/pets.js')
+
+block content
+  h1= title
+  - var pets = ['fluffy', 'rascal', 'zeke']
+  each petName in pets
+    include pet.jade
+
+  +link('/', 'top')(class="btn")
+  p
+  +link('/', 'top')
+
+mixin link(href, name)
+  //- attributes == {class: "btn"}
+  a(class!=attributes.class href=href)= name
+
