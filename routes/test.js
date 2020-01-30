@@ -10,13 +10,17 @@ router.get('/', function(req, res, next) {
 });
 
 
-/* GET home page. */
+/*
+ *	render pageA which has many examples of PUG syntax
+ */
 router.get('/pageA', function(req, res, next) {
 	res.render('pageA', { title: 'More Pug!' });
 });
 
 
-/* GET home page. */
+/*
+ *	render pageB which has many more examples of PUG syntax
+ */
 router.get('/pageB', function(req, res, next) {
     res.render('pageB', { title: 'Sub Pug!' });
 });
