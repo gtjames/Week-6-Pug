@@ -14,13 +14,5 @@ router.get('/', function(req, res, next) {
  *	render pageA which has many examples of PUG syntax
  */
 router.get('/pageA', function(req, res, next) {
-	res.render('pageA', { title: 'More Pug!' });
-});
-
-
-/*
- *	render pageB which has many more examples of PUG syntax
- */
-router.get('/pageB', function(req, res, next) {
-    res.render('pageB', { title: 'Sub Pug!' });
+	res.render('pageA', { title: 'More Pug!', arrayOfData: ['Java', 'C#', 'Node.js', 'HTML', 'CSS3'] });
 });

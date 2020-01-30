@@ -3,16 +3,18 @@ extends layout2.jade
 
 block scripts
   script(src='/javascripts/pets.js')
+  link(rel='stylesheet', href='/stylesheets/style.css')
 
 block content
   h1= title
   - var pets = ['fluffy', 'rascal', 'zeke']
   each petName in pets
     include pet.jade
+  ul
+    each topic in arrayOfData
+      li= topic
 
-  +link('/', 'top')(class="btn")
-  p
-  +link('/', 'top')
+  +link('/', 'Back Home')(class="btn")
 
 mixin link(href, name)
   //- attributes == {class: "btn"}
